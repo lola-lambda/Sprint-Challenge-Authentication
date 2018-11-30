@@ -92,13 +92,19 @@ class App extends Component {
     return (
       <div className='App'>
         <nav>
-          <NavLink exact to='/'>Home</NavLink>
-          <NavLink to='/register'>Register</NavLink>
-          { this.state.loggedIn ? <div onClick={this.logout}>Logout</div> : <NavLink to='/login'>Login</NavLink> }
+          <NavLink className='nav' exact to='/'>Home</NavLink>
+          <NavLink className='nav' to='/register'>Register</NavLink>
+          { this.state.loggedIn ?
+            <div className='nav' onClick={this.logout}>Logout</div> :
+            <NavLink className='nav' to='/login'>Login</NavLink> }
         </nav>
         <section className='main-container'>
           <Switch>
-            <Route exact path='/' render={(props) => this.state.loggedIn ? <Jokes {...props} jokes={this.state.jokes}/> : <div>Please login to view jokes.</div>}/>
+            <Route exact path='/' render={(props) => {
+              return this.state.loggedIn ? 
+                <Jokes {...props} jokes={this.state.jokes}/> :
+                <div className='warning'>Please login to view jokes.</div>}
+            }/>
             <Route path='/register' component={Register} />
             <Route path='/login' component={Login} />
           </Switch>
